@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- The below tag is for Annotation - Comment Bean tags to use Annotation -->
+	<!-- <context:property-placeholder location="classpath:ip.properties" /> -->
+	<context:annotation-config />
+	<context:component-scan
+		base-package="com.capgemini.app" />
+
+
+	<util:set id="set">
+		<value>Mumbai</value>
+		<value>Hyderabad</value>
+		<value>Banglore</value>
+		<value>Chennai</value>
+		<value>Pune</value>
+	</util:set>
+	<util:list id="list">
+		<value>Prasanth</value>
+		<value>Ajay</value>
+		<value>Jaffar</value>
+		<value>Shiva</value>
+		<value>Hema</value>
+		<value>Jaanu</value>
+		<value>Priya</value>
+	</util:list>
+	<util:map id="map">
+		<entry key="Mumbai" value="Satyen" />
+		<entry key="Hyderabad" value="Amit" />
+		<entry key="Banglore" value="Prasanth" />
+		<entry key="Chennai" value="Jaffar" />
+		<entry key="Pune" value="Shiva" />
+	</util:map>
+
+
+	<util:properties id="properties"
+		location="classpath:ip.properties" />
+
+	<bean id="organization"
+		class="com.capgemini.app.bean.Organization">
+		<property name="cities" ref="set"/>
+		<property name="boardMembers" ref="list"/>
+		<property name="branchManagers" ref="map"/>
+		<property name="dateOfEstablishment">
+			<bean id="date" class="java.time.LocalDate" factory-method="parse">
+				<constructor-arg value="1995-07-04"/>
+			</bean>
+		</property>
+		<property name="shareValue" value="20.3"/>
+		<property name="listed" value="true"/>
+		<property name="ipAddresses" ref="properties"/>
+		
+	</bean>
+
+	<bean id="organization2"
+		class="com.capgemini.app.bean.Organization">
+		<constructor-arg value="123" />
+		<constructor-arg value="capgemini" />
+	</bean>
+</beans>
