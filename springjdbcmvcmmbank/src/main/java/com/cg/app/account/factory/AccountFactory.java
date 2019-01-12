@@ -1,7 +1,5 @@
 package com.cg.app.account.factory;
 
-import org.springframework.stereotype.Component;
-
 import com.cg.app.account.SavingsAccount;
 
 

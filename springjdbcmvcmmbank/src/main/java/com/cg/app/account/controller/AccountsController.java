@@ -5,8 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.cg.app.account.SavingsAccount;
 import com.cg.app.account.service.SavingsAccountService;
@@ -19,17 +24,25 @@ public class AccountsController {
 	private SavingsAccountService savingsAccountService;
 
 	@RequestMapping("/newSA")
-	public String createNewsavingsAccountForm() {
+	public String createNewsavingsAccountForm(Model model) {
+		model.addAttribute("account",new SavingsAccount());
 		return "CreateSavingsAccountForm";
 	}
 
 	@RequestMapping("/createAccount")
-	public String createNewsavingsAccount(@RequestParam("accountHolderName") String accountHolderName,
-			@RequestParam("accountBalance") double accountBalance, @RequestParam("salary") boolean salary) {
-		savingsAccountService.createNewAccount(accountHolderName, accountBalance, salary);
+	public String createNewsavingsAccount(@ModelAttribute("account") SavingsAccount account,BindingResult result) {
+		if(result.hasErrors()) {
+			return "CreateSavingsAccountForm";
+		}
+		savingsAccountService.createNewAccount(account.getBankAccount().getAccountHolderName(),
+				account.getBankAccount().getAccountBalance(),account.isSalary());
 		return "redirect:getAll";
 	}
 
+	/*
+	 * @RequestMapping(value="/afterSave",method=RequestMethod.GET) public String
+	 * save(SessionStatus status) { status.setComplete(); return "details"; }
+	 */
 	@RequestMapping("/getAll")
 	public String getAllSavingAccounts(Model model) {
 		List<SavingsAccount> savingsAccounts = savingsAccountService.getAllSavingsAccount();

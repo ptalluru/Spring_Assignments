@@ -1,10 +1,5 @@
 package com.cg.app.application;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.cg.app.account.ui.AccountCUI;
-
 public class Bootstrap {
 	
 	public static void main(String[] args) {

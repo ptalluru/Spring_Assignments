@@ -6,9 +6,13 @@ public class BankAccount {
 	private String accountHolderName;
 	// private static int accountId;
 
+	
 	public BankAccount(int accountNumber, String accountHolderName) {
 		this.accountNumber = accountNumber;
 		this.accountHolderName = accountHolderName;
+	}
+
+	public BankAccount() {
 	}
 
 	public BankAccount(int accountNumber, String accountHolderName, double accountBalance) {
@@ -34,8 +38,16 @@ public class BankAccount {
 		return accountNumber;
 	}
 
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
 	public double getAccountBalance() {
 		return accountBalance;
+	}
+
+	public void setAccountBalance(double accountBalance) {
+		this.accountBalance = accountBalance;
 	}
 
 	@Override
