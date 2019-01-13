@@ -10,5 +10,14 @@ public class HomeController {
 	public String home() {
 		return "index";
 	}
-
+	@RequestMapping("/savings")
+	public String savingsMenu()
+	{
+		return "SavingsAccountForm";
+	}
+	@RequestMapping("/current")
+	public String currentMenu()
+	{
+		return "CurrentAccountForm";
+	}
 }

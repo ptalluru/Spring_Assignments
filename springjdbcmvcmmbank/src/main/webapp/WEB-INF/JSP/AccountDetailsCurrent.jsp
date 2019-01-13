@@ -1,6 +1,6 @@
-<%@ page isELIgnored="false" language="java"
-	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false" language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,14 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
+<form>
 		<table>
 			<tr>
-				<th><a href="sortByNumber">Account Number</a></th>
-				<th><a href="sortByName">Holder Name</a></th>
-				<th><a href="sortByBalance">Account Balance</a></th>
+				<th><a href="sortByNumberCurrent">Account Number</a></th>
+				<th><a href="sortByNameCurrent">Holder Name</a></th>
+				<th><a href="sortByBalanceCurrent">Account Balance</a></th>
 				<th>Salary</th>
-				<th>Over Draft Limit</th>
+				<th><a href="sortByOdLimitCurrent">Over Draft Limit</a></th>
 				<th>Type Of Account</th>
 			</tr>
 			<%-- <jstl:if test="${account!=null}">
@@ -36,9 +36,9 @@
 						<td>${account.bankAccount.accountNumber}</td>
 						<td>${account.bankAccount.accountHolderName }</td>
 						<td>${account.bankAccount.accountBalance}</td>
-						<td>${account.salary==true?"Yes":"No"}</td>
 						<td>${"N/A"}</td>
-						<td>${"Savings"}</td>
+						<td>${account.odlimit}</td>
+						<td>${"Current"}</td>
 					</tr>
 				</c:forEach>
 			</c:if>

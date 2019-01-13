@@ -26,7 +26,7 @@ public class SavingsAccountJDAOImpl implements SavingsAccountDAO {
 
 	public List<SavingsAccount> getAllSavingsAccount()  {
 
-		return jdbcTemplate.query("SELECT * FROM ACCOUNT", new SavingsAccountDetailsMapper());
+		return jdbcTemplate.query("SELECT * FROM ACCOUNT WHERE salary=? OR salary=?",new Object[] {0,1}, new SavingsAccountDetailsMapper());
 	}
 
 	public void updateBalance(int accountNumber, double currentBalance) {

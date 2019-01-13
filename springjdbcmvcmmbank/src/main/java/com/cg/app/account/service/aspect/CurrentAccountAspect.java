@@ -1,49 +1,45 @@
-package com.cg.app.account.service;
+package com.cg.app.account.service.aspect;
 
 import java.util.logging.Logger;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 
-import com.cg.app.account.SavingsAccount;
+import com.cg.app.account.CurrentAccount;
 
-@Aspect
-@Component
-public class SavingsAccountAspect {
 
+public class CurrentAccountAspect {
 	Logger logger = Logger.getLogger(SavingsAccountAspect.class.getName());
 
-	@Around("execution(* com.cg.app.account.service.SavingsAccountServiceImpl.deposit(..))")
+	@Around("execution(* com.cg.app.account.service.CurrentAccountServiceImpl.deposit(..))")
 	public void depositValidation(ProceedingJoinPoint pjp) throws Throwable {
 		Object[] param = pjp.getArgs();
-		SavingsAccount savingsAccount = (SavingsAccount) param[0];
+		CurrentAccount currentAccount = (CurrentAccount) param[0];
 		double amount = (Double) param[1];
-		 if (amount > 0 && savingsAccount!=null) {
+		 if (amount > 0 && currentAccount!=null) {
 			pjp.proceed();
-		}else if (savingsAccount == null) {
+		}else if (currentAccount == null) {
 			logger.warning("Account number doesnot exists!!");
 		}  else {
 			logger.warning("Deposit amount should be greater than 0");
 		}
 	}
 
-	@Around("execution(* com.cg.app.account.service.SavingsAccountServiceImpl.withdraw(..))")
+	@Around("execution(* com.cg.app.account.service.CurrentAccountServiceImpl.withdraw(..))")
 	public void withdrawValidation(ProceedingJoinPoint pjp) throws Throwable {
 		 
 		Object[] param = pjp.getArgs();
-		SavingsAccount savingsAccount = (SavingsAccount) param[0];
-		if (savingsAccount != null) {
+		CurrentAccount currentAccount = (CurrentAccount) param[0];
+		if (currentAccount != null) {
 			
-			double currentBalance = savingsAccount.getBankAccount().getAccountBalance();
+			double currentBalance = currentAccount.getBankAccount().getAccountBalance();
 			double amount = (Double) param[1];
 
-			 if (amount > 0 && currentBalance >= amount) {
+			if (amount > 0 && currentBalance + currentAccount.getOdlimit() >= amount) {
 				pjp.proceed();
 			}
 			else {
-				logger.warning("Withdraw amount should begreater than 0 and ");
+				logger.warning("Withdraw amount should be less than availableBalance + odLimit and greater than 0");
 			}
 		}
 		else {
@@ -52,12 +48,12 @@ public class SavingsAccountAspect {
 		
 	}
 
-	@Around("execution(* com.cg.app.account.service.SavingsAccountServiceImpl.fundTransfer(..))")
+	@Around("execution(* com.cg.app.account.service.CurrentAccountServiceImpl.fundTransfer(..))")
 	public void fundTransferValidation(ProceedingJoinPoint pjp) throws Throwable {
 		Object[] param = pjp.getArgs();
-		SavingsAccount sender = (SavingsAccount) param[0];
+		CurrentAccount sender = (CurrentAccount) param[0];
 		double senderBalance = sender.getBankAccount().getAccountBalance();
-		SavingsAccount receiver = (SavingsAccount) param[1];
+		CurrentAccount receiver = (CurrentAccount) param[1];
 		// double recieverBalance=receiver.getBankAccount().getAccountBalance();
 		double amount = (Double) param[2];
 		if (sender == null || receiver == null) {

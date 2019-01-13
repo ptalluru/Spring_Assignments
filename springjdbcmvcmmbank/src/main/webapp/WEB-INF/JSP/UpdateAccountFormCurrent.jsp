@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +8,7 @@
 </head>
 <body>
 	<h1>Update Account</h1>
-	<form action="update">
+	<form action="updateCurrent">
 		<label>Account Number : <input type="number" name="accountNumber"></label><br>
 		<br> <label><input type="submit" name="submit"
 			value="Submit"></label>

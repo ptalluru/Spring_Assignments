@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-	<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form" %>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Update Account</h1>
-	<form action="update">
-		<label>Account Number : <input type="number" name="accountNumber"></label><br>
+<form action="closeAccountCurrent">
+		<h1>Close Account !!</h1>
+		<h5>* Account Number is mandatory to close account!</h5>
+		<label>Account Number : <input type="number" name="accountNumber" required="required"></label><br>
 		<br> <label><input type="submit" name="submit"
 			value="Submit"></label>
 	</form>
